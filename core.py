@@ -38,7 +38,7 @@ def msg(context):
 
 def start(update, context):
     context.job_queue.run_daily(msg,
-                                datetime.time(hour=19, minute=33, tzinfo=pytz.timezone('America/Sao_Paulo')),
+                                datetime.time(hour=17, minute=00, tzinfo=pytz.timezone('America/Sao_Paulo')),
                                 days=(0, 1, 2, 3, 4, 5, 6), context=update.message.chat_id)
 
 
