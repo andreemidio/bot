@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 bender_bot = Bot(False, False)
 
 TELEGRAM_TOKEN = config("TELEGRAM_TOKEN")
+WEBHOOK_URL = config("WEBHOOK_URL")
 BOT_NAME = config("BOT_NAME")
 DEBUG = True if os.getenv("DEBUG") else False
 
@@ -54,17 +55,18 @@ def main():
 
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start, pass_job_queue=True))
-    # dp.add_handler(CommandHandler("start", start, pass_job_queue=True))
     dp.add_error_handler(error)
 
     # updater.start_polling()
 
     logging.info(f'Porta de comunicação {PORT}')
     #
-    # updater.start_webhook(listen="0.0.0.0",
-    #                       port=PORT,
-    #                       url_path=TELEGRAM_TOKEN,
-    #                       webhook_url=WEBHOOK_URL + TELEGRAM_TOKEN)
+    updater.start_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        url_path=TELEGRAM_TOKEN,
+        webhook_url=WEBHOOK_URL + TELEGRAM_TOKEN
+    )
     updater.idle()
 
 
